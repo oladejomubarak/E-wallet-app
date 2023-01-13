@@ -1,4 +1,4 @@
-package oladejo.mubarak.unicoin.user;
+package user;
 
 public enum UserRole {
     USER, ADMIN
