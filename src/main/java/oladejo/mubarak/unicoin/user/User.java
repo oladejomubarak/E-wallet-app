@@ -1,4 +1,4 @@
-package user;
+package oladejo.mubarak.unicoin.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
