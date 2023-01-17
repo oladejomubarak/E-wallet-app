@@ -17,7 +17,7 @@ public class ConfirmationTokenServices {
     public void getConfirmationToken(String token){
         confirmationTokenRepository.findByToken(token);
     }
-    public void deleteExpiredToken(LocalDateTime currentTime){
-        confirmationTokenRepository.dele
+    public void deleteExpiredToken(){
+        confirmationTokenRepository.deleteConfirmationTokensByExpiredAtBefore(LocalDateTime.now());
     }
 }
