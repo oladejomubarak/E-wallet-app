@@ -22,7 +22,8 @@ public class UserServicesImpl implements UserServices{
         ConfirmationToken confirmationToken = new ConfirmationToken(
                 token,
                 LocalDateTime.now(),
-                LocalDateTime.now().plusMinutes(10)
+                LocalDateTime.now().plusMinutes(10),
+                user
 
         );
         confirmationTokenServices.saveConfirmationToken(confirmationToken);
