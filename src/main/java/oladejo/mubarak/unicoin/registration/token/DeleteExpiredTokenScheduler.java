@@ -18,7 +18,9 @@ public class DeleteExpiredTokenScheduler {
     private ConfirmationTokenServices confirmationTokenServices;
     @Scheduled(cron = "0 0 0 * * *")
     public void deleteExpiredToken(){
+        //System.out.println("deleted");
         confirmationTokenServices.deleteExpiredToken();
+
 
 
     }
