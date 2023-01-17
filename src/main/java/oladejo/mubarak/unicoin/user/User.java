@@ -33,5 +33,13 @@ public class User {
     private UserRole userRole;
     private Boolean isDisabled;
 
+    public User(String emailAddress, String firstName, String lastName, String password, UserRole userRole) {
+        this.emailAddress = emailAddress;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.userRole = userRole;
+    }
+
 
 }
