@@ -1,13 +1,12 @@
 package oladejo.mubarak.unicoin.registration.token;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import oladejo.mubarak.unicoin.user.User;
 
 import java.time.LocalDateTime;
 @RequiredArgsConstructor
@@ -18,8 +17,14 @@ public class ConfirmationToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     private String token;
+    @NotNull
     private LocalDateTime createdAt;
+    @NotNull
     private LocalDateTime expiredAt;
     private LocalDateTime confirmedAt;
+    @ManyToOne
+    @JoinColumn(name = "user_token", referencedColumnName = "id")
+    private User user;
 }

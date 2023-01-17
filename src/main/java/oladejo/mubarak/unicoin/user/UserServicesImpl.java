@@ -11,6 +11,5 @@ public class UserServicesImpl implements UserServices{
     public String createAccount(User user) {
         userRepository.save(user);
         return "created";
-
     }
 }
