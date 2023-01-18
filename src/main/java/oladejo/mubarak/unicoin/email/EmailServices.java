@@ -28,9 +28,4 @@ public class EmailServices implements EmailSender{
         javaMailSender.send(mailMessage);
     }
 
-    public static class RegistrationException extends RuntimeException{
-        public RegistrationException(String message){
-            super(message);
-        }
-    }
 }

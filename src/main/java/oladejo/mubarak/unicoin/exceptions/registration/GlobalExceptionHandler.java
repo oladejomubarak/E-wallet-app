@@ -14,7 +14,7 @@ import java.time.ZonedDateTime;
 public class GlobalExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<ApiResponse> UserAlreadyExistsException(
-            EmailServices.RegistrationException registrationException,
+            RegistrationException registrationException,
             HttpServletRequest httpServletRequest
     ){
         ApiResponse apiResponse = ApiResponse.builder()
