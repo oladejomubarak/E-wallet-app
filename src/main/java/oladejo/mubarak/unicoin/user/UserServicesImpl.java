@@ -1,5 +1,6 @@
 package oladejo.mubarak.unicoin.user;
 
+import lombok.AllArgsConstructor;
 import oladejo.mubarak.unicoin.registration.token.ConfirmationToken;
 import oladejo.mubarak.unicoin.registration.token.ConfirmationTokenServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class UserServicesImpl implements UserServices{
     @Autowired
     private UserRepository userRepository;
@@ -28,5 +30,10 @@ public class UserServicesImpl implements UserServices{
         );
         confirmationTokenServices.saveConfirmationToken(confirmationToken);
         return token;
+    }
+
+    @Override
+    public void enableUser(String emailAddress) {
+        userRepository.enable(emailAddress);
     }
 }

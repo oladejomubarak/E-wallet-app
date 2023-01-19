@@ -15,6 +15,8 @@ public interface ConfirmationTokenRepository extends JpaRepository<ConfirmationT
     Optional<ConfirmationToken> findByToken(String token);
     @Transactional
     void deleteConfirmationTokensByExpiredAtBefore(LocalDateTime currentTime);
+
+
     @Transactional
     @Modifying
     @Query("UPDATE ConfirmationToken confirmationToken" +

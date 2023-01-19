@@ -1,8 +1,12 @@
 package oladejo.mubarak.unicoin.registration;
 
 import jakarta.mail.MessagingException;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import oladejo.mubarak.unicoin.email.EmailSender;
-import oladejo.mubarak.unicoin.email.EmailServices;
+import oladejo.mubarak.unicoin.exceptions.registration.RegistrationException;
+import oladejo.mubarak.unicoin.registration.dtos.ConfirmTokenRequest;
+import oladejo.mubarak.unicoin.registration.dtos.RegistrationRequest;
 import oladejo.mubarak.unicoin.registration.token.ConfirmationToken;
 import oladejo.mubarak.unicoin.registration.token.ConfirmationTokenServices;
 import oladejo.mubarak.unicoin.user.User;
@@ -15,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
+@AllArgsConstructor
 public class RegistrationServices {
     @Autowired
     private UserRepository userRepository;
@@ -29,7 +34,7 @@ public class RegistrationServices {
        boolean emailExists = userRepository.findByEmailAddressIgnoreCase
                (registrationRequest.getEmailAddress()).isPresent();
        if(emailExists)
-           throw new EmailServices.RegistrationException("Email Address already exists");
+           throw new RegistrationException("Email Address already exists");
        String token = userService.createAccount(new User(
                registrationRequest.getEmailAddress(),
                registrationRequest.getFirstName(),
@@ -41,8 +46,8 @@ public class RegistrationServices {
                buildEmail(registrationRequest.getFirstName(), token));
        return token;
     }
-    public String confirmToken(String confirmationToken){
-        ConfirmationToken token = confirmationTokenServices.getConfirmationToken(confirmationToken).orElseThrow(()->
+    public String confirmToken(ConfirmTokenRequest confirmTokenRequest){
+        ConfirmationToken token = confirmationTokenServices.getConfirmationToken(confirmTokenRequest.getToken()).orElseThrow(()->
                 new IllegalStateException("Token does not exist"));
         if(token.getExpiredAt().isBefore(LocalDateTime.now())){
             throw new IllegalStateException("Token has expired");
@@ -51,8 +56,10 @@ public class RegistrationServices {
             throw new IllegalStateException("Token has been used");
         }
         confirmationTokenServices.setConfirmedAt(token.getToken());
+        userService.enableUser(confirmTokenRequest.getEmail());
         return "confirmed";
     }
+
 
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +

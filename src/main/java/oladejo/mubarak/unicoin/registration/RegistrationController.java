@@ -2,6 +2,8 @@ package oladejo.mubarak.unicoin.registration;
 
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
+import oladejo.mubarak.unicoin.registration.dtos.RegistrationRequest;
+import oladejo.mubarak.unicoin.registration.dtos.ConfirmTokenRequest;
 import oladejo.mubarak.unicoin.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,5 +31,20 @@ public class RegistrationController {
                .isSuccessful(true)
                .build();
         return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.OK);
+    }
+    @PostMapping("/confirm")
+    public ResponseEntity<?> confirmToken(@RequestBody ConfirmTokenRequest confirmTokenRequest,
+                                          HttpServletRequest httpServletRequest) throws MessagingException{
+        ApiResponse apiResponse = ApiResponse.builder()
+                .statusCode(HttpStatus.OK.value())
+                .data(registrationServices.confirmToken(confirmTokenRequest))
+                .timeStamp(ZonedDateTime.now())
+                .path(httpServletRequest.getRequestURI())
+                .isSuccessful(true)
+                .build();
+        return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.OK);
+
+
+
     }
 }
