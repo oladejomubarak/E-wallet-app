@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import oladejo.mubarak.unicoin.email.EmailSender;
 import oladejo.mubarak.unicoin.exceptions.registration.RegistrationException;
 import oladejo.mubarak.unicoin.registration.dtos.ConfirmTokenRequest;
+import oladejo.mubarak.unicoin.registration.dtos.LoginRequest;
 import oladejo.mubarak.unicoin.registration.dtos.RegistrationRequest;
 import oladejo.mubarak.unicoin.registration.token.ConfirmationToken;
 import oladejo.mubarak.unicoin.registration.token.ConfirmationTokenServices;
@@ -58,6 +59,16 @@ public class RegistrationServices {
         confirmationTokenServices.setConfirmedAt(token.getToken());
         userService.enableUser(confirmTokenRequest.getEmail());
         return "confirmed";
+    }
+    public String login (LoginRequest loginRequest){
+       var foundUser = userService.fndUserByEmail(loginRequest.getEmailAddress());
+       if(foundUser.isEmpty()) throw new RegistrationException(String.format
+               ("The email %s has not been registered with any account", loginRequest.getEmailAddress()));
+        if (loginRequest.getPassword().equals(foundUser.get().))
+//            if( loginRequest.getPassword().equals(foundUser.get().getPassword())) loginRequest.setPassword(loginRequest.getPassword());
+//            else
+//                throw new RegistrationException("Incorrect password");
+        return "You're successfully logged in";
     }
 
 
