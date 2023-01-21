@@ -52,7 +52,10 @@ public class UserServicesImpl implements UserServices{
             throw new IllegalStateException("Incorrect password");
          foundUser.setPassword(changePasswordRequest.getNewPassword() != null && !changePasswordRequest.getNewPassword().equals("")
          ? changePasswordRequest.getNewPassword() : foundUser.getPassword());
-        if (!foundUser.getPassword().equals(changePasswordRequest.getConfirmNewPassword()))
+
+        foundUser.setPassword(changePasswordRequest.getConfirmNewPassword());
+
+        if (!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getConfirmNewPassword()))
             throw new IllegalStateException("passwords do not match");
          return "password changed successfully";
     }
