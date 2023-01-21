@@ -64,7 +64,7 @@ public class RegistrationServices {
        var foundUser = userService.fndUserByEmail(loginRequest.getEmailAddress());
        if(foundUser.isEmpty()) throw new RegistrationException(String.format
                ("The email %s has not been registered with any account", loginRequest.getEmailAddress()));
-        if (loginRequest.getPassword().equals(foundUser.get().))
+        //if (loginRequest.getPassword().equals(foundUser.get().))
 //            if( loginRequest.getPassword().equals(foundUser.get().getPassword())) loginRequest.setPassword(loginRequest.getPassword());
 //            else
 //                throw new RegistrationException("Incorrect password");
