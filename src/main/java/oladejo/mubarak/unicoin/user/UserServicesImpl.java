@@ -50,13 +50,12 @@ public class UserServicesImpl implements UserServices{
                 .orElseThrow(()-> new IllegalStateException("Email not found"));
         if(!changePasswordRequest.getOldPassword().equals(foundUser.getPassword()))
             throw new IllegalStateException("Incorrect password");
-         foundUser.setPassword(changePasswordRequest.getNewPassword() != null && !changePasswordRequest.getNewPassword().equals("")
-         ? changePasswordRequest.getNewPassword() : foundUser.getPassword());
-
-        foundUser.setPassword(changePasswordRequest.getConfirmNewPassword());
-
         if (!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getConfirmNewPassword()))
             throw new IllegalStateException("passwords do not match");
+         foundUser.setPassword(changePasswordRequest.getNewPassword());
+        foundUser.setPassword(changePasswordRequest.getConfirmNewPassword());
+        userRepository.save(foundUser);
+
          return "password changed successfully";
     }
 }
