@@ -1,6 +1,7 @@
 package oladejo.mubarak.unicoin.user;
 
 import oladejo.mubarak.unicoin.user.dtos.ChangePasswordRequest;
+import oladejo.mubarak.unicoin.user.dtos.DeleteUserRequest;
 
 import java.util.Optional;
 
@@ -10,5 +11,6 @@ public interface UserServices {
     public Optional<User> fndUserByEmail(String emailAddress);
 
     public String changePassword(ChangePasswordRequest changePasswordRequest);
+    public String deleteUser(String email, DeleteUserRequest deleteUserRequest);
 
 }

@@ -25,7 +25,7 @@ public class ConfirmationToken {
     private LocalDateTime expiredAt;
     private LocalDateTime confirmedAt;
     @ManyToOne
-    @JoinColumn(name = "user_token", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     public ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiredAt, User user){

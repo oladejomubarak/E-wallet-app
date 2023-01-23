@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import oladejo.mubarak.unicoin.registration.token.ConfirmationToken;
 import oladejo.mubarak.unicoin.registration.token.ConfirmationTokenServices;
 import oladejo.mubarak.unicoin.user.dtos.ChangePasswordRequest;
+import oladejo.mubarak.unicoin.user.dtos.DeleteUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,8 +47,7 @@ public class UserServicesImpl implements UserServices{
 
     @Override
     public String changePassword(ChangePasswordRequest changePasswordRequest) {
-        User foundUser = userRepository.findByEmailAddressIgnoreCase(changePasswordRequest.getEmailAddress())
-                .orElseThrow(()-> new IllegalStateException("Email not found"));
+       User foundUser = userRepository.findByEmailAddressIgnoreCase(changePasswordRequest.getEmailAddress()).get();
         if(!changePasswordRequest.getOldPassword().equals(foundUser.getPassword()))
             throw new IllegalStateException("Incorrect password");
         if (!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getConfirmNewPassword()))
@@ -58,5 +58,14 @@ public class UserServicesImpl implements UserServices{
         userRepository.save(foundUser);
 
          return "password changed successfully";
+    }
+
+    @Override
+    public String deleteUser(String email, DeleteUserRequest deleteUserRequest) {
+        User foundUser = userRepository.findByEmailAddressIgnoreCase(email).get();
+        String token = UUID.randomUUID().toString();
+        String deleteEmail = "delete"+
+        foundUser.setEmailAddress();
+        return null;
     }
 }
