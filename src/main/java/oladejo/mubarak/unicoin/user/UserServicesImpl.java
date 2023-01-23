@@ -64,8 +64,9 @@ public class UserServicesImpl implements UserServices{
     public String deleteUser(String email, DeleteUserRequest deleteUserRequest) {
         User foundUser = userRepository.findByEmailAddressIgnoreCase(email).get();
         String token = UUID.randomUUID().toString();
-        String deleteEmail = "delete"+
-        foundUser.setEmailAddress();
-        return null;
+        String deleteEmail = "delete"+foundUser.getEmailAddress()+token;
+        foundUser.setEmailAddress(deleteEmail);
+        userRepository.save(foundUser);
+        return "user deleted successfully";
     }
 }
