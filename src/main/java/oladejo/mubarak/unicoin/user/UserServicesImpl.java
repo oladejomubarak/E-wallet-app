@@ -52,9 +52,9 @@ public class UserServicesImpl implements UserServices{
             throw new IllegalStateException("Incorrect password");
         if (!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getConfirmNewPassword()))
             throw new IllegalStateException("passwords do not match");
-        foundUser.setPassword(changePasswordRequest.getOldPassword());
+        //foundUser.setPassword(changePasswordRequest.getOldPassword());
          foundUser.setPassword(changePasswordRequest.getNewPassword());
-        foundUser.setPassword(changePasswordRequest.getConfirmNewPassword());
+        //foundUser.setPassword(changePasswordRequest.getConfirmNewPassword());
         userRepository.save(foundUser);
 
          return "password changed successfully";
@@ -63,7 +63,8 @@ public class UserServicesImpl implements UserServices{
     @Override
     public String deleteUser(String email, DeleteUserRequest deleteUserRequest) {
         User foundUser = userRepository.findByEmailAddressIgnoreCase(email).get();
-        if(!foundUser.getPassword().equals(deleteUserRequest.getPassword())) throw new IllegalStateException("wrong password");
+        if(!foundUser.getPassword().equals(deleteUserRequest.getPassword()))
+            throw new IllegalStateException("wrong password");
         String token = UUID.randomUUID().toString();
         String deleteEmail = "deleted"+foundUser.getEmailAddress()+token;
         foundUser.setPassword(deleteUserRequest.getPassword());
