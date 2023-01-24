@@ -5,6 +5,7 @@ import oladejo.mubarak.unicoin.registration.token.ConfirmationToken;
 import oladejo.mubarak.unicoin.registration.token.ConfirmationTokenServices;
 import oladejo.mubarak.unicoin.user.dtos.ChangePasswordRequest;
 import oladejo.mubarak.unicoin.user.dtos.DeleteUserRequest;
+import oladejo.mubarak.unicoin.user.dtos.ResetPasswordRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,5 +72,20 @@ public class UserServicesImpl implements UserServices{
         foundUser.setEmailAddress(deleteEmail);
         userRepository.save(foundUser);
         return "user deleted successfully";
+    }
+
+    @Override
+    public String forgotPasswordSendToken(String email, String token) {
+        return null;
+    }
+
+    @Override
+    public String forgotCPasswordConfirmToken(String token) {
+        return null;
+    }
+
+    @Override
+    public String resetPassword(ResetPasswordRequest resetPasswordRequest) {
+        return null;
     }
 }
