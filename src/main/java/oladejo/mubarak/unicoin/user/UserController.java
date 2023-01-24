@@ -3,6 +3,7 @@ package oladejo.mubarak.unicoin.user;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import oladejo.mubarak.unicoin.user.dtos.ChangePasswordRequest;
+import oladejo.mubarak.unicoin.user.dtos.DeleteUserRequest;
 import oladejo.mubarak.unicoin.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,12 +29,12 @@ public class UserController {
                 .build();
         return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.OK);
     }
-    @PatchMapping("/changepassword")
-    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest,
+    @PutMapping("/deleteuser/{email}")
+    public ResponseEntity<?> deleteUser(@PathVariable String email, @RequestBody DeleteUserRequest deleteUserRequest,
                                             HttpServletRequest httpServletRequest) throws MessagingException {
         ApiResponse apiResponse = ApiResponse.builder()
                 .statusCode(HttpStatus.OK.value())
-                .data(userServices.changePassword(changePasswordRequest))
+                .data(userServices.deleteUser(email, deleteUserRequest))
                 .timeStamp(ZonedDateTime.now())
                 .path(httpServletRequest.getRequestURI())
                 .isSuccessful(true)

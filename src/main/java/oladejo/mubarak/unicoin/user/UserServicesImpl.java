@@ -63,8 +63,10 @@ public class UserServicesImpl implements UserServices{
     @Override
     public String deleteUser(String email, DeleteUserRequest deleteUserRequest) {
         User foundUser = userRepository.findByEmailAddressIgnoreCase(email).get();
+        if(!foundUser.getPassword().equals(deleteUserRequest.getPassword())) throw new IllegalStateException("wrong password");
         String token = UUID.randomUUID().toString();
         String deleteEmail = "deleted"+foundUser.getEmailAddress()+token;
+        foundUser.setPassword(deleteUserRequest.getPassword());
         foundUser.setEmailAddress(deleteEmail);
         userRepository.save(foundUser);
         return "user deleted successfully";
