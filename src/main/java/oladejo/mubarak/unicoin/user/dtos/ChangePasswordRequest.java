@@ -1,16 +1,17 @@
 package oladejo.mubarak.unicoin.user.dtos;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class ChangePasswordRequest {
 
     private String emailAddress;
-    @NotBlank
+    @NotNull
     private String oldPassword;
-    @NotBlank
+    @NotNull
     private String newPassword;
-    @NotBlank
+    @NotNull
     private String confirmNewPassword;
 }
